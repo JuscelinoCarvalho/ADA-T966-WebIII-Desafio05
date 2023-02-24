@@ -16,7 +16,7 @@ public class FilmeController {
         return Flux.just(1,2,3);
     }
 
-    @GetMapping("/mono")
+    @GetMapping(value = "/mono")
     public Mono<String> mono() {
         return Mono.just("hello");
     }
@@ -26,4 +26,11 @@ public class FilmeController {
         return Flux.interval(Duration.ofSeconds(2)).log();
     }
 
+}
+
+class Cliente {
+    public Cliente log() {
+        System.out.println("faz log");
+        return this;
+    }
 }
