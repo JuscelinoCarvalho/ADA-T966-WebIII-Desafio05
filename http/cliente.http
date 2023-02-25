@@ -1,0 +1,8 @@
+### salvar
+POST http://localhost:8080/cliente
+Content-Type: application/json
+
+< ./post-fred-mercury.json
+
+### listar
+GET http://localhost:8080/cliente
