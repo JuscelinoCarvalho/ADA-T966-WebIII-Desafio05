@@ -4,5 +4,5 @@ GET http://localhost:8080/flux
 ### mono
 GET http://localhost:8080/mono
 
-### stream
-GET http://localhost:8080/stream
+### stream -> hora
+GET http://localhost:8080/hora

@@ -22,15 +22,11 @@ public class ReactiveServiceTest {
                 .verifyComplete();
     }
 
+    // alternativa - precisa refatorar
     public static void main(String[] args) {
-        // testa 1
         ReactiveService service = new ReactiveService();
         Mono<String> nomeMono = service.nomeMono();
-        System.out.println( nomeMono.log() );
-
-        // testa 2
-
-        // testa 3
+        nomeMono.log().subscribe( nome -> System.out.println(nome ));
     }
 
 }

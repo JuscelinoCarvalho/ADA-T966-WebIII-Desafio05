@@ -7,13 +7,14 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.time.LocalTime;
 
 @RestController
-public class FilmeController {
+public class BaseController {
 
     @GetMapping("/flux")
     public Flux<Integer> flux() {
-        return Flux.just(1,2,3);
+        return Flux.just(1, 2, 3);
     }
 
     @GetMapping(value = "/mono")
@@ -21,16 +22,12 @@ public class FilmeController {
         return Mono.just("hello");
     }
 
-    @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Long> stream() {
-        return Flux.interval(Duration.ofSeconds(2)).log();
+    @GetMapping(path = "/hora", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> streamFlux() {
+        return Flux.interval(Duration.ofSeconds(1))
+                .map(sequence -> {
+                    return "hora - " + LocalTime.now().toString();
+                }).log();
     }
 
-}
-
-class Cliente {
-    public Cliente log() {
-        System.out.println("faz log");
-        return this;
-    }
 }
