@@ -4,12 +4,16 @@ import com.example.domain.Cliente;
 import com.example.service.ClienteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Sinks;
+
+import java.time.Duration;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 @Slf4j
 public class ClienteController {
 
@@ -22,13 +26,12 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Cliente> salvar(@RequestBody Cliente cliente) {
-        log.info("salvando : {} ", cliente);
         return service.salvar(cliente);
     }
 
     @GetMapping
     public Flux<Cliente> listar() {
-        return service.listar().log();
+        return service.listar();
     }
 
 }
