@@ -12,3 +12,6 @@ PUT http://localhost:8080/clientes/63fd2cdb7979a029405ff2c6
 Content-Type: application/json
 
 < ./post-michael-jordan.json
+
+### remover
+DELETE http://localhost:8080/clientes/63fd384cf4727d6f5746ff6d

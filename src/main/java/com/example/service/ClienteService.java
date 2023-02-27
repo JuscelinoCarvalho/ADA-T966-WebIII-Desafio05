@@ -47,7 +47,7 @@ public class ClienteService {
     }
 
     public Mono<Void> remover(String id) {
-        return null;
+        return repository.deleteById(id);
     }
 
 }
