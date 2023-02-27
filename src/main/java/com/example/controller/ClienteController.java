@@ -5,6 +5,7 @@ import com.example.service.ClienteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -35,9 +36,11 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public Mono<Cliente> atualizar(@RequestBody Cliente cliente, @PathVariable String id) {
+    public Mono<ResponseEntity<Cliente>> atualizar(@RequestBody Cliente cliente, @PathVariable String id) {
         Mono<Cliente> atualizar = service.atualizar(cliente, id);
-        return atualizar;
+        return atualizar
+            .map(atual -> ResponseEntity.ok().body(atual))
+            .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
     @DeleteMapping("/{id}")
