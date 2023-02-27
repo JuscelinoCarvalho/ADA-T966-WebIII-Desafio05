@@ -1,8 +1,14 @@
 ### salvar
-POST http://localhost:8080/cliente
+POST http://localhost:8080/clientes
 Content-Type: application/json
 
-< ./post-fred-mercury.json
+< ./post-michael-jordan.json
 
 ### listar
-GET http://localhost:8080/cliente
+GET http://localhost:8080/clientes
+
+### atualizar
+PUT http://localhost:8080/clientes/63fd2cdb7979a029405ff2c6
+Content-Type: application/json
+
+< ./post-michael-jordan.json

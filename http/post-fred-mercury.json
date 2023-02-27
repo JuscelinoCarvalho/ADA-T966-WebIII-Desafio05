@@ -1,5 +1,4 @@
 {
-  "id" : "2",
   "nome" : "Fred Mercury",
   "nasc" : 1960,
   "roles"  : [ "usuario", "cantor" ],

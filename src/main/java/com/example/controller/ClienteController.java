@@ -34,4 +34,16 @@ public class ClienteController {
         return service.listar();
     }
 
+    @PutMapping("/{id}")
+    public Mono<Cliente> atualizar(@RequestBody Cliente cliente, @PathVariable String id) {
+        Mono<Cliente> atualizar = service.atualizar(cliente, id);
+        return atualizar;
+    }
+
+    @DeleteMapping("/{id}")
+    public Mono<Void> remover(@PathVariable String id) {
+        return service.remover(id);
+    }
+
+
 }

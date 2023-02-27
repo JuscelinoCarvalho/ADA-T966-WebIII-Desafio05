@@ -1,0 +1,6 @@
+{
+  "nome" : "Michael Jordan",
+  "nasc" : 1963,
+  "roles"  : [ "usuario", "jogador", "basquete", "professor" ],
+  "entrou" : "2023-02-27"
+}

@@ -1,4 +1,4 @@
-package com.example.domain;
+package com.example.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
-public class Cliente {
-
-    @Id
-    private String id;
+public class ClienteRequest {
 
     private String nome;
     private List<String> roles;

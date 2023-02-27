@@ -1,5 +1,4 @@
 {
-  "id" : "1",
   "nome" : "Leo Santana",
   "nasc" : 1990,
   "roles"  : [ "usuario", "cantor" ],

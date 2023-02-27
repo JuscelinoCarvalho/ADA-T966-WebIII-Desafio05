@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
+
 @Service
 public class ClienteService {
 
@@ -17,10 +19,35 @@ public class ClienteService {
 
     public Mono<Cliente> salvar(Cliente cliente) {
         return repository.save(cliente);
-
     }
 
     public Flux<Cliente> listar() {
         return repository.findAll();
     }
+
+    // transacoes compensatorias -> try -> confirm/cancel
+    public Mono<Cliente> atualizar(Cliente cliente, String id) {
+        return repository.findById(id)
+            .flatMap( atual -> {
+               atual.setNome( cliente.getNome() );
+               atual.setEntrou( cliente.getEntrou() );
+               atual.setNasc( cliente.getNasc() );
+               atual.setRoles( cliente.getRoles() );
+               return repository.save(atual);
+            });
+    }
+
+    // TODO
+    public Mono<Cliente> atualizar(Cliente cliente, Cliente atual) {
+        atual.setNome( cliente.getNome() );
+        atual.setEntrou( cliente.getEntrou() );
+        atual.setNasc( cliente.getNasc() );
+        atual.setRoles( cliente.getRoles() );
+        return repository.save(atual);
+    }
+
+    public Mono<Void> remover(String id) {
+        return null;
+    }
+
 }
