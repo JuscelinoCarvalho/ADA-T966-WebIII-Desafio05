@@ -24,10 +24,15 @@ public class ClienteController {
         this.service = clienteService;
     }
 
+    Sinks.Many<Cliente> sinks = Sinks.many().replay().latest();
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Cliente> salvar(@RequestBody Cliente cliente) {
-        return service.salvar(cliente);
+        return service.salvar(cliente)
+                .doOnNext(salvo -> {
+                   sinks.tryEmitNext(salvo);
+                });
     }
 
     @GetMapping
@@ -48,5 +53,9 @@ public class ClienteController {
         return service.remover(id);
     }
 
+    @GetMapping("/stream")
+    public Flux<Cliente> stream() {
+        return sinks.asFlux();
+    }
 
 }

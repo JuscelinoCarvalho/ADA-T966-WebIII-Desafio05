@@ -15,3 +15,6 @@ Content-Type: application/json
 
 ### remover
 DELETE http://localhost:8080/clientes/63fd384cf4727d6f5746ff6d
+
+### stream
+GET http://localhost:8080/clientes/stream
