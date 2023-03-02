@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.domain.Cliente;
 import com.example.service.ClienteService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 
 import java.time.Duration;
+import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
@@ -26,16 +28,21 @@ public class ClienteController {
 
     Sinks.Many<Cliente> sinks = Sinks.many().replay().latest();
 
-    @PostMapping
+    @PostMapping(path="/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Cliente> salvar(@RequestBody Cliente cliente) {
+    public Mono<Cliente> salvar(@Valid @RequestBody Cliente cliente) {
         return service.salvar(cliente)
                 .doOnNext(salvo -> {
                    sinks.tryEmitNext(salvo);
                 });
     }
 
-    @GetMapping
+    @PostMapping(path="/saveAll")
+    public Flux<Cliente> saveList(@Valid @RequestBody List<Cliente> clienteList){
+        return service.salvarTodos(clienteList);
+    }
+
+    @GetMapping(path = "/")
     public Flux<Cliente> listar() {
         return service.listar();
     }

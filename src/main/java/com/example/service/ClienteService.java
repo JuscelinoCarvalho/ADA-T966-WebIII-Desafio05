@@ -1,17 +1,18 @@
 package com.example.service;
 
 import com.example.domain.Cliente;
+import com.example.exception.UnsuportActionException;
 import com.example.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ClienteService {
 
-    private ClienteRepository repository;
+    private final ClienteRepository repository;
 
     public ClienteService(ClienteRepository repository) {
         this.repository = repository;
@@ -39,15 +40,20 @@ public class ClienteService {
 
     // TODO
     public Mono<Cliente> atualizar(Cliente cliente, Cliente atual) {
-        atual.setNome( cliente.getNome() );
-        atual.setEntrou( cliente.getEntrou() );
-        atual.setNasc( cliente.getNasc() );
-        atual.setRoles( cliente.getRoles() );
-        return repository.save(atual);
+            atual.setNome(cliente.getNome());
+            atual.setEntrou(cliente.getEntrou());
+            atual.setNasc(cliente.getNasc());
+            atual.setRoles(cliente.getRoles());
+            return repository.save(atual);
     }
 
     public Mono<Void> remover(String id) {
         return repository.deleteById(id);
+    }
+
+
+    public Flux<Cliente> salvarTodos(List<Cliente> clienteList){
+        return repository.saveAll(clienteList) ;
     }
 
 }
